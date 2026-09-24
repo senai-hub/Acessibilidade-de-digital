@@ -1,0 +1,4252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Acessibilidade Digital | Gestão Inteligente com IA</title>
+
+<meta
+  name="description"
+  content="Sistema Inteligente de Gestão de Acessibilidade e Inclusão Organizacional via IA - SENAI MT + Petrobras"
+>
+
+<meta name="theme-color" content="#071a38">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+  rel="stylesheet"
+>
+
+<style>
+
+/* =========================================================
+   VARIÁVEIS
+========================================================= */
+
+:root{
+  --verde:#008542;
+  --verde-2:#00a86b;
+  --verde-3:#006b37;
+
+  --amarelo:#ffd100;
+  --laranja:#ff9500;
+
+  --azul:#071a38;
+  --azul-2:#0a1f44;
+  --azul-3:#12396f;
+
+  --bg:#f5f8fc;
+  --card:#ffffff;
+
+  --txt:#0a1f44;
+  --txt-2:#526174;
+  --muted:#718096;
+
+  --borda:rgba(10,31,68,.09);
+
+  --shadow:0 12px 40px rgba(10,31,68,.10);
+  --shadow-hover:0 22px 60px rgba(10,31,68,.16);
+
+  --radius:20px;
+}
+
+body.dark{
+  --bg:#07101f;
+  --card:#101b30;
+
+  --txt:#f3f7fb;
+  --txt-2:#cbd5e1;
+  --muted:#94a3b8;
+
+  --borda:rgba(255,255,255,.09);
+
+  --shadow:0 15px 45px rgba(0,0,0,.30);
+  --shadow-hover:0 25px 70px rgba(0,0,0,.45);
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Inter",sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--txt);
+  line-height:1.6;
+  overflow-x:hidden;
+  transition:.3s ease;
+}
+
+button,
+input,
+textarea{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+}
+
+::selection{
+  background:var(--amarelo);
+  color:var(--azul);
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+========================================================= */
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(25px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes pulse{
+  0%,100%{
+    transform:scale(1);
+  }
+  50%{
+    transform:scale(1.06);
+  }
+}
+
+@keyframes float{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-14px);
+  }
+}
+
+@keyframes gradient{
+  0%,100%{
+    background-position:0% 50%;
+  }
+  50%{
+    background-position:100% 50%;
+  }
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+@keyframes blink{
+  50%{
+    opacity:.3;
+  }
+}
+
+@keyframes shake{
+  0%,100%{
+    transform:translateX(0);
+  }
+  25%{
+    transform:translateX(-5px);
+  }
+  75%{
+    transform:translateX(5px);
+  }
+}
+
+@keyframes glow{
+  0%,100%{
+    box-shadow:0 10px 30px rgba(0,133,66,.25);
+  }
+  50%{
+    box-shadow:0 15px 45px rgba(0,133,66,.55);
+  }
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(35px);
+  transition:.8s ease;
+}
+
+.reveal.visible{
+  opacity:1;
+  transform:none;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+
+  min-height:72px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:12px 28px;
+
+  background:rgba(7,26,56,.94);
+  backdrop-filter:blur(18px);
+
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  color:#fff;
+  font-weight:800;
+}
+
+.logo-mark{
+  width:44px;
+  height:44px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:13px;
+
+  background:linear-gradient(
+    135deg,
+    var(--amarelo),
+    var(--laranja)
+  );
+
+  color:var(--verde);
+
+  font-size:1.45rem;
+
+  box-shadow:0 8px 25px rgba(255,209,0,.2);
+
+  animation:pulse 3s infinite;
+}
+
+.logo-text{
+  line-height:1.2;
+}
+
+.logo-text strong{
+  display:block;
+  font-size:.96rem;
+}
+
+.logo-text small{
+  display:block;
+  margin-top:3px;
+
+  font-size:.67rem;
+  font-weight:400;
+
+  opacity:.72;
+}
+
+nav{
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+
+nav a{
+  padding:9px 14px;
+
+  border-radius:10px;
+
+  color:rgba(255,255,255,.84);
+
+  text-decoration:none;
+
+  font-size:.85rem;
+  font-weight:600;
+
+  transition:.25s;
+}
+
+nav a:hover{
+  background:rgba(255,209,0,.12);
+  color:var(--amarelo);
+}
+
+.header-actions{
+  display:flex;
+  gap:8px;
+}
+
+.icon-btn{
+  width:40px;
+  height:40px;
+
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:10px;
+
+  background:rgba(255,255,255,.07);
+
+  color:#fff;
+
+  transition:.25s;
+}
+
+.icon-btn:hover{
+  background:rgba(255,209,0,.14);
+  color:var(--amarelo);
+}
+
+#menuBtn{
+  display:none;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+
+  padding:90px 24px 105px;
+
+  text-align:center;
+  color:#fff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #071a38 0%,
+      #0e3267 35%,
+      #0066cc 67%,
+      #008542 100%
+    );
+
+  background-size:300% 300%;
+
+  animation:gradient 18s infinite;
+}
+
+.hero::before{
+  content:"";
+
+  position:absolute;
+
+  width:500px;
+  height:500px;
+
+  left:-180px;
+  top:-220px;
+
+  border-radius:50%;
+
+  background:rgba(255,209,0,.16);
+
+  filter:blur(60px);
+
+  animation:float 12s infinite;
+}
+
+.hero::after{
+  content:"";
+
+  position:absolute;
+
+  width:500px;
+  height:500px;
+
+  right:-180px;
+  bottom:-240px;
+
+  border-radius:50%;
+
+  background:rgba(0,168,107,.22);
+
+  filter:blur(65px);
+
+  animation:float 15s infinite reverse;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+
+  max-width:920px;
+  margin:auto;
+
+  animation:fadeUp 1s ease;
+}
+
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  padding:8px 17px;
+
+  margin-bottom:24px;
+
+  border:1px solid rgba(255,209,0,.35);
+  border-radius:50px;
+
+  background:rgba(255,209,0,.08);
+
+  font-size:.78rem;
+  font-weight:600;
+
+  backdrop-filter:blur(10px);
+}
+
+.hero-dot{
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:var(--amarelo);
+
+  animation:pulse 2s infinite;
+}
+
+.hero h1{
+  margin-bottom:20px;
+
+  font-size:clamp(2.1rem,5.5vw,3.7rem);
+
+  line-height:1.08;
+
+  letter-spacing:-.045em;
+}
+
+.hero h1 span{
+  background:
+    linear-gradient(
+      90deg,
+      var(--amarelo),
+      var(--laranja),
+      var(--amarelo)
+    );
+
+  background-size:200% auto;
+
+  -webkit-background-clip:text;
+  background-clip:text;
+
+  -webkit-text-fill-color:transparent;
+
+  animation:gradient 4s linear infinite;
+}
+
+.hero-description{
+  max-width:720px;
+  margin:0 auto 32px;
+
+  color:rgba(255,255,255,.88);
+
+  font-size:1.03rem;
+}
+
+.hero-buttons{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+
+  min-height:50px;
+
+  padding:14px 27px;
+
+  border-radius:50px;
+
+  border:none;
+
+  font-size:.9rem;
+  font-weight:800;
+
+  text-decoration:none;
+
+  transition:.25s;
+}
+
+.btn-primary-yellow{
+  background:linear-gradient(
+    135deg,
+    var(--amarelo),
+    var(--laranja)
+  );
+
+  color:var(--azul);
+
+  box-shadow:0 10px 30px rgba(255,209,0,.28);
+}
+
+.btn-primary-yellow:hover{
+  transform:translateY(-3px);
+  box-shadow:0 16px 40px rgba(255,209,0,.4);
+}
+
+.btn-glass{
+  color:#fff;
+
+  border:1px solid rgba(255,255,255,.25);
+
+  background:rgba(255,255,255,.08);
+
+  backdrop-filter:blur(10px);
+}
+
+.btn-glass:hover{
+  border-color:var(--amarelo);
+  color:var(--amarelo);
+  background:rgba(255,255,255,.13);
+}
+
+.hero-stats{
+  max-width:700px;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+
+  gap:14px;
+
+  margin:48px auto 0;
+}
+
+.hero-stat{
+  padding:17px;
+
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;
+
+  background:rgba(255,255,255,.06);
+
+  backdrop-filter:blur(12px);
+}
+
+.hero-stat strong{
+  display:block;
+
+  color:var(--amarelo);
+
+  font-size:1.45rem;
+}
+
+.hero-stat span{
+  display:block;
+
+  margin-top:2px;
+
+  font-size:.74rem;
+
+  opacity:.82;
+}
+
+
+/* =========================================================
+   SEÇÕES
+========================================================= */
+
+.section{
+  max-width:1160px;
+
+  margin:auto;
+
+  padding:82px 24px;
+}
+
+.section-header{
+  text-align:center;
+
+  margin-bottom:45px;
+}
+
+.tag{
+  display:inline-flex;
+
+  padding:6px 13px;
+
+  margin-bottom:11px;
+
+  border-radius:50px;
+
+  background:rgba(0,133,66,.09);
+
+  color:var(--verde);
+
+  font-size:.72rem;
+  font-weight:800;
+
+  letter-spacing:.07em;
+
+  text-transform:uppercase;
+}
+
+.section-header h2{
+  margin-bottom:10px;
+
+  font-size:clamp(1.7rem,4vw,2.4rem);
+
+  letter-spacing:-.035em;
+}
+
+.section-header p{
+  max-width:650px;
+
+  margin:auto;
+
+  color:var(--txt-2);
+
+  font-size:.95rem;
+}
+
+
+/* =========================================================
+   SISTEMA
+========================================================= */
+
+.system-card{
+  max-width:850px;
+
+  margin:auto;
+
+  padding:38px 34px;
+
+  background:var(--card);
+
+  border:1px solid var(--borda);
+
+  border-radius:25px;
+
+  box-shadow:0 25px 70px rgba(10,31,68,.11);
+}
+
+.progress{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+
+  gap:8px;
+
+  margin-bottom:12px;
+}
+
+.progress-item{
+  height:7px;
+
+  border-radius:10px;
+
+  background:rgba(10,31,68,.08);
+
+  transition:.4s;
+}
+
+.progress-item.active{
+  background:
+    linear-gradient(
+      90deg,
+      var(--verde),
+      var(--amarelo)
+    );
+
+  box-shadow:0 0 16px rgba(0,133,66,.25);
+}
+
+.step-label{
+  margin-bottom:28px;
+
+  text-align:center;
+
+  color:var(--txt-2);
+
+  font-size:.8rem;
+}
+
+.step-label strong{
+  color:var(--verde);
+}
+
+.step{
+  display:none;
+
+  animation:fadeUp .45s ease;
+}
+
+.step.active{
+  display:block;
+}
+
+.question-title{
+  margin-bottom:6px;
+
+  font-size:1.4rem;
+  font-weight:800;
+}
+
+.question-description{
+  margin-bottom:22px;
+
+  color:var(--txt-2);
+
+  font-size:.88rem;
+}
+
+.options{
+  display:grid;
+  gap:11px;
+}
+
+.option{
+  position:relative;
+
+  width:100%;
+
+  display:flex;
+  align-items:center;
+
+  gap:14px;
+
+  padding:16px 18px;
+
+  text-align:left;
+
+  color:var(--txt);
+
+  background:var(--bg);
+
+  border:2px solid var(--borda);
+
+  border-radius:15px;
+
+  transition:.25s;
+}
+
+.option:hover{
+  transform:translateX(4px);
+
+  border-color:var(--verde);
+
+  background:rgba(0,133,66,.045);
+}
+
+.option.selected{
+  border-color:var(--verde);
+
+  background:rgba(0,133,66,.08);
+
+  box-shadow:
+    0 0 0 3px rgba(0,133,66,.1);
+}
+
+.option.selected::after{
+  content:"✓";
+
+  position:absolute;
+
+  right:17px;
+
+  color:var(--verde);
+
+  font-size:1.15rem;
+  font-weight:900;
+}
+
+.option-icon{
+  width:42px;
+  height:42px;
+
+  flex-shrink:0;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,133,66,.12),
+      rgba(255,209,0,.12)
+    );
+
+  font-size:1.35rem;
+}
+
+.option-content strong{
+  display:block;
+
+  margin-bottom:2px;
+
+  font-size:.91rem;
+}
+
+.option-content small{
+  color:var(--txt-2);
+
+  font-size:.77rem;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+
+  gap:7px;
+
+  margin-bottom:15px;
+}
+
+.form-group label{
+  font-size:.84rem;
+  font-weight:700;
+}
+
+.form-group input,
+.form-group textarea{
+  width:100%;
+
+  padding:13px 15px;
+
+  border:2px solid var(--borda);
+  border-radius:12px;
+
+  outline:none;
+
+  background:var(--bg);
+  color:var(--txt);
+
+  font-size:.88rem;
+
+  transition:.25s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+  border-color:var(--verde);
+
+  box-shadow:
+    0 0 0 4px rgba(0,133,66,.1);
+}
+
+.form-group textarea{
+  min-height:125px;
+
+  resize:vertical;
+}
+
+.form-note{
+  margin:5px 0 15px;
+
+  color:var(--muted);
+
+  font-size:.72rem;
+}
+
+.actions{
+  display:flex;
+
+  gap:10px;
+
+  margin-top:23px;
+}
+
+.btn-system{
+  flex:1;
+
+  min-height:50px;
+
+  padding:14px 22px;
+
+  border:none;
+
+  border-radius:50px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--verde),
+      var(--verde-2)
+    );
+
+  color:#fff;
+
+  font-weight:800;
+
+  transition:.25s;
+}
+
+.btn-system:hover:not(:disabled){
+  transform:translateY(-2px);
+
+  box-shadow:0 12px 30px rgba(0,133,66,.35);
+}
+
+.btn-system:disabled{
+  opacity:.45;
+
+  cursor:not-allowed;
+}
+
+.btn-system.ready{
+  animation:glow 2s infinite;
+}
+
+.btn-back{
+  min-height:50px;
+
+  padding:13px 22px;
+
+  border:2px solid var(--borda);
+
+  border-radius:50px;
+
+  background:transparent;
+
+  color:var(--txt);
+
+  font-weight:700;
+}
+
+.btn-back:hover{
+  border-color:var(--verde);
+  color:var(--verde);
+}
+
+
+/* =========================================================
+   RESULTADO
+========================================================= */
+
+.result{
+  overflow:hidden;
+
+  padding:35px 27px;
+
+  color:#fff;
+
+  border-radius:21px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #00773b,
+      #00a86b
+    );
+}
+
+.result-check{
+  width:70px;
+  height:70px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  margin:0 auto 17px;
+
+  border-radius:50%;
+
+  background:var(--amarelo);
+
+  color:var(--verde);
+
+  font-size:2.2rem;
+  font-weight:900;
+
+  animation:pulse 2s infinite;
+}
+
+.result h3{
+  margin-bottom:5px;
+
+  text-align:center;
+
+  font-size:1.55rem;
+}
+
+.result-subtitle{
+  text-align:center;
+
+  font-size:.86rem;
+
+  opacity:.9;
+}
+
+.protocol{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+
+  width:max-content;
+
+  max-width:100%;
+
+  margin:17px auto;
+
+  padding:10px 17px;
+
+  border-radius:50px;
+
+  background:rgba(0,0,0,.18);
+
+  font-family:monospace;
+
+  font-weight:800;
+
+  letter-spacing:.8px;
+}
+
+.protocol button{
+  border:0;
+
+  background:transparent;
+
+  color:#fff;
+
+  font-size:.95rem;
+}
+
+.result-box{
+  margin-top:17px;
+
+  padding:19px;
+
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:16px;
+
+  background:rgba(255,255,255,.12);
+
+  backdrop-filter:blur(10px);
+}
+
+.result-box h4{
+  margin-bottom:10px;
+
+  font-size:.95rem;
+}
+
+.result-box ul{
+  padding:0;
+
+  list-style:none;
+}
+
+.result-box li{
+  position:relative;
+
+  padding:6px 0 6px 22px;
+
+  font-size:.83rem;
+}
+
+.result-box li::before{
+  content:"✓";
+
+  position:absolute;
+
+  left:0;
+
+  color:var(--amarelo);
+
+  font-weight:900;
+}
+
+.result-tags{
+  display:flex;
+  flex-wrap:wrap;
+
+  gap:6px;
+
+  margin-top:12px;
+}
+
+.result-tag{
+  padding:5px 10px;
+
+  border-radius:20px;
+
+  background:rgba(0,0,0,.2);
+
+  font-size:.7rem;
+  font-weight:700;
+}
+
+.result-info{
+  margin-top:14px;
+
+  padding:14px;
+
+  border-radius:12px;
+
+  background:rgba(0,0,0,.15);
+
+  text-align:center;
+
+  font-size:.8rem;
+}
+
+.result-actions{
+  display:flex;
+
+  flex-wrap:wrap;
+
+  justify-content:center;
+
+  gap:9px;
+
+  margin-top:17px;
+}
+
+.result-actions button{
+  padding:10px 16px;
+
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:50px;
+
+  background:rgba(255,255,255,.1);
+
+  color:#fff;
+
+  font-weight:700;
+}
+
+.result-actions button:hover{
+  background:rgba(255,255,255,.2);
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.cards{
+  display:grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
+
+  gap:18px;
+}
+
+.card{
+  position:relative;
+
+  overflow:hidden;
+
+  padding:25px;
+
+  border:1px solid var(--borda);
+  border-radius:20px;
+
+  background:var(--card);
+
+  box-shadow:var(--shadow);
+
+  transition:.35s;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+
+  box-shadow:var(--shadow-hover);
+}
+
+.card-icon{
+  width:52px;
+  height:52px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  margin-bottom:15px;
+
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,133,66,.12),
+      rgba(255,209,0,.14)
+    );
+
+  font-size:1.45rem;
+}
+
+.card h3{
+  margin-bottom:6px;
+
+  font-size:.98rem;
+}
+
+.card p{
+  color:var(--txt-2);
+
+  font-size:.83rem;
+}
+
+
+/* =========================================================
+   SOBRE
+========================================================= */
+
+.about-box{
+  max-width:850px;
+
+  margin:auto;
+
+  padding:35px;
+
+  text-align:center;
+
+  border:1px solid var(--borda);
+  border-radius:24px;
+
+  background:var(--card);
+
+  box-shadow:var(--shadow);
+}
+
+.about-box p{
+  color:var(--txt-2);
+
+  font-size:.9rem;
+}
+
+.about-highlight{
+  display:grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(180px,1fr));
+
+  gap:12px;
+
+  margin-top:25px;
+}
+
+.about-item{
+  padding:17px;
+
+  border-radius:15px;
+
+  background:var(--bg);
+}
+
+.about-item strong{
+  display:block;
+
+  color:var(--verde);
+
+  font-size:.82rem;
+}
+
+.about-item span{
+  display:block;
+
+  margin-top:4px;
+
+  color:var(--txt-2);
+
+  font-size:.76rem;
+}
+
+
+/* =========================================================
+   CHAT
+========================================================= */
+
+#chatButton{
+  position:fixed;
+
+  right:22px;
+  bottom:22px;
+
+  z-index:900;
+
+  width:62px;
+  height:62px;
+
+  border:0;
+  border-radius:50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--verde),
+      var(--verde-2)
+    );
+
+  color:#fff;
+
+  font-size:1.45rem;
+
+  box-shadow:0 13px 35px rgba(0,133,66,.4);
+
+  animation:pulse 2.5s infinite;
+}
+
+#chatWindow{
+  position:fixed;
+
+  right:22px;
+  bottom:96px;
+
+  z-index:899;
+
+  width:390px;
+  max-width:calc(100vw - 30px);
+
+  height:610px;
+  max-height:calc(100vh - 125px);
+
+  display:none;
+  flex-direction:column;
+
+  overflow:hidden;
+
+  border-radius:22px;
+
+  background:var(--card);
+
+  box-shadow:0 30px 80px rgba(0,0,0,.3);
+}
+
+#chatWindow.open{
+  display:flex;
+
+  animation:fadeUp .3s ease;
+}
+
+.chat-header{
+  display:flex;
+  align-items:center;
+
+  gap:11px;
+
+  padding:15px 17px;
+
+  color:#fff;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--azul-2),
+      var(--verde)
+    );
+}
+
+.chat-avatar{
+  width:42px;
+  height:42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--amarelo),
+      var(--laranja)
+    );
+
+  font-size:1.25rem;
+}
+
+.chat-title{
+  flex:1;
+}
+
+.chat-title strong{
+  display:block;
+
+  font-size:.9rem;
+}
+
+.chat-title small{
+  opacity:.8;
+
+  font-size:.68rem;
+}
+
+.chat-close{
+  border:0;
+
+  background:none;
+
+  color:#fff;
+
+  font-size:1.45rem;
+}
+
+.chat-body{
+  flex:1;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:10px;
+
+  overflow-y:auto;
+
+  padding:15px;
+
+  background:var(--bg);
+}
+
+.message{
+  max-width:84%;
+
+  padding:10px 14px;
+
+  border-radius:16px;
+
+  font-size:.82rem;
+
+  line-height:1.5;
+
+  animation:fadeUp .25s ease;
+}
+
+.message.bot{
+  align-self:flex-start;
+
+  border:1px solid var(--borda);
+
+  border-bottom-left-radius:5px;
+
+  background:var(--card);
+
+  color:var(--txt);
+}
+
+.message.user{
+  align-self:flex-end;
+
+  border-bottom-right-radius:5px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--verde),
+      var(--verde-2)
+    );
+
+  color:#fff;
+}
+
+.typing{
+  display:flex;
+
+  gap:4px;
+
+  padding:13px 16px;
+}
+
+.typing span{
+  width:7px;
+  height:7px;
+
+  border-radius:50%;
+
+  background:#94a3b8;
+
+  animation:blink 1.2s infinite;
+}
+
+.typing span:nth-child(2){
+  animation-delay:.2s;
+}
+
+.typing span:nth-child(3){
+  animation-delay:.4s;
+}
+
+.quick-replies{
+  display:flex;
+  flex-wrap:wrap;
+
+  gap:5px;
+
+  padding:9px 12px;
+
+  border-top:1px solid var(--borda);
+
+  background:var(--card);
+}
+
+.quick-replies button{
+  padding:5px 9px;
+
+  border:1px solid rgba(0,133,66,.25);
+  border-radius:50px;
+
+  background:rgba(0,133,66,.07);
+
+  color:var(--verde);
+
+  font-size:.68rem;
+}
+
+.quick-replies button:hover{
+  background:var(--verde);
+
+  color:#fff;
+}
+
+.chat-input{
+  display:flex;
+
+  gap:8px;
+
+  padding:10px;
+
+  border-top:1px solid var(--borda);
+
+  background:var(--card);
+}
+
+.chat-input input{
+  flex:1;
+
+  padding:11px 15px;
+
+  border:1px solid var(--borda);
+  border-radius:50px;
+
+  outline:none;
+
+  background:var(--bg);
+
+  color:var(--txt);
+
+  font-size:.82rem;
+}
+
+.chat-input input:focus{
+  border-color:var(--verde);
+}
+
+.chat-send{
+  width:42px;
+  height:42px;
+
+  flex-shrink:0;
+
+  border:0;
+  border-radius:50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--verde),
+      var(--verde-2)
+    );
+
+  color:#fff;
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+#toast{
+  position:fixed;
+
+  left:50%;
+  bottom:25px;
+
+  z-index:2000;
+
+  transform:translate(-50%,20px);
+
+  padding:12px 18px;
+
+  border-radius:12px;
+
+  background:#071a38;
+
+  color:#fff;
+
+  font-size:.8rem;
+  font-weight:700;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:.3s;
+}
+
+#toast.show{
+  opacity:1;
+
+  transform:translate(-50%,0);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+  padding:50px 24px 25px;
+
+  background:var(--azul);
+
+  color:#fff;
+
+  text-align:center;
+}
+
+footer strong{
+  display:block;
+
+  margin-bottom:7px;
+
+  font-size:.9rem;
+}
+
+footer p{
+  margin-bottom:5px;
+
+  color:rgba(255,255,255,.72);
+
+  font-size:.78rem;
+}
+
+footer a{
+  color:var(--amarelo);
+
+  text-decoration:none;
+}
+
+.footer-bottom{
+  max-width:800px;
+
+  margin:22px auto 0;
+
+  padding-top:18px;
+
+  border-top:1px solid rgba(255,255,255,.08);
+
+  color:rgba(255,255,255,.45);
+
+  font-size:.7rem;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media(max-width:900px){
+
+  header{
+    padding:11px 17px;
+  }
+
+  #menuBtn{
+    display:block;
+  }
+
+  nav{
+    position:fixed;
+
+    left:0;
+    right:0;
+    top:70px;
+
+    display:flex;
+    flex-direction:column;
+
+    padding:15px;
+
+    background:rgba(7,26,56,.98);
+
+    backdrop-filter:blur(20px);
+
+    transform:translateY(-130%);
+
+    transition:.3s;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+
+  nav.open{
+    transform:translateY(0);
+  }
+
+  nav a{
+    width:100%;
+
+    padding:12px;
+
+    text-align:center;
+  }
+
+  .hero{
+    padding:65px 18px 80px;
+  }
+
+  .hero-stats{
+    grid-template-columns:1fr;
+
+    max-width:300px;
+  }
+
+  .section{
+    padding:60px 18px;
+  }
+
+  .system-card{
+    padding:27px 19px;
+  }
+}
+
+@media(max-width:560px){
+
+  .logo-text strong{
+    font-size:.84rem;
+  }
+
+  .logo-text small{
+    font-size:.6rem;
+  }
+
+  .logo-mark{
+    width:40px;
+    height:40px;
+  }
+
+  .hero h1{
+    font-size:2rem;
+  }
+
+  .hero-buttons{
+    flex-direction:column;
+  }
+
+  .hero-buttons .btn{
+    width:100%;
+  }
+
+  .actions{
+    flex-direction:column;
+  }
+
+  .btn-back,
+  .btn-system{
+    width:100%;
+  }
+
+  .protocol{
+    font-size:.75rem;
+  }
+
+  .result{
+    padding:30px 19px;
+  }
+
+  #chatWindow{
+    right:14px;
+    bottom:88px;
+
+    width:calc(100vw - 28px);
+    height:calc(100vh - 120px);
+  }
+
+  #chatButton{
+    right:16px;
+    bottom:16px;
+  }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+:focus-visible{
+  outline:3px solid var(--amarelo);
+  outline-offset:3px;
+}
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =======================================================
+     HEADER
+======================================================= -->
+
+<header>
+
+  <a
+    href="#inicio"
+    class="logo"
+    aria-label="Acessibilidade Digital - Início"
+    style="text-decoration:none"
+  >
+
+    <div class="logo-mark">♿</div>
+
+    <div class="logo-text">
+      <strong>Acessibilidade Digital</strong>
+      <small>Gestão Inteligente com IA</small>
+    </div>
+
+  </a>
+
+  <nav id="mainNav">
+
+    <a href="#sistema" onclick="fecharMenu()">
+      Atendimento
+    </a>
+
+    <a href="#recursos" onclick="fecharMenu()">
+      Recursos
+    </a>
+
+    <a href="#sobre" onclick="fecharMenu()">
+      Sobre
+    </a>
+
+  </nav>
+
+  <div class="header-actions">
+
+    <button
+      class="icon-btn"
+      id="themeBtn"
+      onclick="alternarTema()"
+      aria-label="Alternar tema"
+    >
+      🌙
+    </button>
+
+    <button
+      class="icon-btn"
+      id="menuBtn"
+      onclick="alternarMenu()"
+      aria-label="Abrir menu"
+    >
+      ☰
+    </button>
+
+  </div>
+
+</header>
+
+
+<!-- =======================================================
+     HERO
+======================================================= -->
+
+<main>
+
+<section class="hero" id="inicio">
+
+  <div class="hero-content">
+
+    <div class="hero-badge">
+      <span class="hero-dot"></span>
+      Sistema Inteligente de Inclusão Organizacional
+    </div>
+
+    <h1>
+      Projeto
+      <span>Acessibilidade Digital</span>
+      <br>
+      Gestão Inteligente com IA
+    </h1>
+
+    <p class="hero-description">
+      Identificação, classificação e encaminhamento de demandas
+      relacionadas a barreiras de acessibilidade — arquitetônicas,
+      comunicacionais, tecnológicas, institucionais e atitudinais.
+    </p>
+
+    <div class="hero-buttons">
+
+      <a
+        href="#sistema"
+        class="btn btn-primary-yellow"
+      >
+        🎯 Iniciar Atendimento
+      </a>
+
+      <a
+        href="#sobre"
+        class="btn btn-glass"
+      >
+        📖 Conhecer o Projeto
+      </a>
+
+    </div>
+
+    <div class="hero-stats">
+
+      <div class="hero-stat">
+        <strong>+85%</strong>
+        <span>Eficiência na gestão</span>
+      </div>
+
+      <div class="hero-stat">
+        <strong>-70%</strong>
+        <span>Tempo de resposta</span>
+      </div>
+
+      <div class="hero-stat">
+        <strong>24/7</strong>
+        <span>Suporte com IA</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     SISTEMA
+======================================================= -->
+
+<section
+  id="sistema"
+  class="section"
+>
+
+  <div class="section-header">
+
+    <span class="tag">
+      Atendimento Inteligente
+    </span>
+
+    <h2>
+      Registre sua demanda
+    </h2>
+
+    <p>
+      Responda às quatro etapas para classificar a situação
+      e gerar um plano de ação personalizado.
+    </p>
+
+  </div>
+
+
+  <div class="system-card">
+
+    <!-- PROGRESSO -->
+
+    <div class="progress">
+
+      <div class="progress-item active" id="progress1"></div>
+      <div class="progress-item" id="progress2"></div>
+      <div class="progress-item" id="progress3"></div>
+      <div class="progress-item" id="progress4"></div>
+
+    </div>
+
+    <div class="step-label">
+      Etapa
+      <strong>
+        <span id="stepNumber">1</span> de 4
+      </strong>
+      —
+      <span id="stepName">
+        Tipo de Barreira
+      </span>
+    </div>
+
+
+    <!-- ===================================================
+         ETAPA 1
+    ==================================================== -->
+
+    <div class="step active" id="step1">
+
+      <h3 class="question-title">
+        Qual o tipo de barreira?
+      </h3>
+
+      <p class="question-description">
+        Selecione a categoria que melhor representa a situação.
+      </p>
+
+      <div class="options">
+
+        <button
+          class="option"
+          data-value="arquitetonica"
+          onclick="selecionarOpcao(this, 'tipo')"
+        >
+          <span class="option-icon">🏗️</span>
+
+          <span class="option-content">
+            <strong>Barreira Arquitetônica</strong>
+            <small>
+              Rampas, elevadores, banheiros, circulação e espaços físicos.
+            </small>
+          </span>
+        </button>
+
+
+        <button
+          class="option"
+          data-value="comunicacional"
+          onclick="selecionarOpcao(this, 'tipo')"
+        >
+          <span class="option-icon">🗣️</span>
+
+          <span class="option-content">
+            <strong>Barreira Comunicacional</strong>
+            <small>
+              Libras, Braille, audiodescrição e comunicação acessível.
+            </small>
+          </span>
+        </button>
+
+
+        <button
+          class="option"
+          data-value="tecnologica"
+          onclick="selecionarOpcao(this, 'tipo')"
+        >
+          <span class="option-icon">💻</span>
+
+          <span class="option-content">
+            <strong>Barreira Tecnológica</strong>
+            <small>
+              Sites, sistemas, aplicativos e ferramentas digitais.
+            </small>
+          </span>
+        </button>
+
+
+        <button
+          class="option"
+          data-value="transporte"
+          onclick="selecionarOpcao(this, 'tipo')"
+        >
+          <span class="option-icon">🚌</span>
+
+          <span class="option-content">
+            <strong>Barreira de Transporte</strong>
+            <small>
+              Locomoção, rotas e veículos adaptados.
+            </small>
+          </span>
+        </button>
+
+
+        <button
+          class="option"
+          data-value="institucional"
+          onclick="selecionarOpcao(this, 'tipo')"
+        >
+          <span class="option-icon">📋</span>
+
+          <span class="option-content">
+            <strong>Barreira Institucional</strong>
+            <small>
+              Políticas, normas, processos e procedimentos internos.
+            </small>
+          </span>
+        </button>
+
+
+        <button
+          class="option"
+          data-value="atitudinal"
+          onclick="selecionarOpcao(this, 'tipo')"
+        >
+          <span class="option-icon">🧠</span>
+
+          <span class="option-content">
+            <strong>Barreira Atitudinal</strong>
+            <small>
+              Preconceito, capacitismo, exclusão e atitudes inadequadas.
+            </small>
+          </span>
+        </button>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn-system"
+          id="next1"
+          disabled
+          onclick="irParaEtapa(2)"
+        >
+          Continuar →
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         ETAPA 2
+    ==================================================== -->
+
+    <div class="step" id="step2">
+
+      <h3 class="question-title">
+        Onde acontece?
+      </h3>
+
+      <p class="question-description">
+        Informe o ambiente onde a barreira foi identificada.
+      </p>
+
+      <div class="options">
+
+        <button
+          class="option"
+          data-value="refinaria"
+          onclick="selecionarOpcao(this, 'local')"
+        >
+          <span class="option-icon">🏭</span>
+
+          <span class="option-content">
+            <strong>Refinaria / Planta Industrial</strong>
+            <small>Ambiente operacional ou industrial.</small>
+          </span>
+        </button>
+
+
+        <button
+          class="option"
+          data-value="offshore"
+          onclick="selecionarOpcao(this, 'local')"
+        >
+          <span class="option-icon">🛢️</span>
+
+          <span class="option-content">
+            <strong>Plataforma Offshore</strong>
+            <small>Ambiente marítimo e instalações offshore.</small>
+          </span>
+        </button>
+
+
+        <button
+          class="option"
+          data-value="escritorio"
+          onclick="selecionarOpcao(this, 'local')"
+        >
+          <span class="option-icon">🏢</span>
+
+          <span class="option-content">
+            <strong>Escritório Administrativo</strong>
+            <small>Ambiente administrativo ou corporativo.</small>
+          </span>
+        </button>
+
+
+        <button
+          class="option"
+          data-value="digital"
+          onclick="selecionarOpcao(this, 'local')"
+        >
+          <span class="option-icon">🖥️</span>
+
+          <span class="option-content">
+            <strong>Sistema / Ambiente Digital</strong>
+            <small>Sites, sistemas, aplicativos ou plataformas.</small>
+          </span>
+        </button>
+
+
+        <button
+          class="option"
+          data-value="rh"
+          onclick="selecionarOpcao(this, 'local')"
+        >
+          <span class="option-icon">👥</span>
+
+          <span class="option-content">
+            <strong>RH / Gestão de Pessoas</strong>
+            <small>Processos relacionados às pessoas e equipes.</small>
+          </span>
+        </button>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn-back"
+          onclick="irParaEtapa(1)"
+        >
+          ← Voltar
+        </button>
+
+        <button
+          class="btn-system"
+          id="next2"
+          disabled
+          onclick="irParaEtapa(3)"
+        >
+          Continuar →
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         ETAPA 3
+    ==================================================== -->
+
+    <div class="step" id="step3">
+
+      <h3 class="question-title">
+        Qual o nível de urgência?
+      </h3>
+
+      <p class="question-description">
+        A prioridade será considerada na geração do plano de ação.
+      </p>
+
+      <div class="options">
+
+        <button
+          class="option"
+          data-value="critica"
+          onclick="selecionarOpcao(this, 'urgencia')"
+        >
+          <span class="option-icon">🚨</span>
+
+          <span class="option-content">
+            <strong>Crítica</strong>
+            <small>
+              Impede o trabalho ou apresenta risco relevante.
+            </small>
+          </span>
+        </button>
+
+
+        <button
+          class="option"
+          data-value="alta"
+          onclick="selecionarOpcao(this, 'urgencia')"
+        >
+          <span class="option-icon">⚠️</span>
+
+          <span class="option-content">
+            <strong>Alta</strong>
+            <small>
+              Prejudica significativamente as atividades.
+            </small>
+          </span>
+        </button>
+
+
+        <button
+          class="option"
+          data-value="media"
+          onclick="selecionarOpcao(this, 'urgencia')"
+        >
+          <span class="option-icon">⏰</span>
+
+          <span class="option-content">
+            <strong>Média</strong>
+            <small>
+              Limita parcialmente a realização das atividades.
+            </small>
+          </span>
+        </button>
+
+
+        <button
+          class="option"
+          data-value="baixa"
+          onclick="selecionarOpcao(this, 'urgencia')"
+        >
+          <span class="option-icon">📅</span>
+
+          <span class="option-content">
+            <strong>Baixa</strong>
+            <small>
+              Demanda melhoria ou adequação planejada.
+            </small>
+          </span>
+        </button>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn-back"
+          onclick="irParaEtapa(2)"
+        >
+          ← Voltar
+        </button>
+
+        <button
+          class="btn-system"
+          id="next3"
+          disabled
+          onclick="irParaEtapa(4)"
+        >
+          Continuar →
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         ETAPA 4
+    ==================================================== -->
+
+    <div class="step" id="step4">
+
+      <h3 class="question-title">
+        Detalhes da demanda
+      </h3>
+
+      <p class="question-description">
+        Informe seus dados e descreva a situação encontrada.
+      </p>
+
+      <div class="form-group">
+
+        <label for="nome">
+          Nome completo *
+        </label>
+
+        <input
+          id="nome"
+          type="text"
+          autocomplete="name"
+          placeholder="Digite seu nome completo"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="email">
+          E-mail corporativo *
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          autocomplete="email"
+          placeholder="seuemail@petrobras.com.br"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="setor">
+          Setor / Matrícula
+        </label>
+
+        <input
+          id="setor"
+          type="text"
+          placeholder="Ex.: Refinaria - Matrícula 12345"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="descricao">
+          Descreva a barreira *
+        </label>
+
+        <textarea
+          id="descricao"
+          placeholder="Descreva onde acontece, quando acontece, o que está impedindo e quem é afetado..."
+        ></textarea>
+
+      </div>
+
+      <p class="form-note">
+        🔒 As informações preenchidas devem ser utilizadas conforme as
+        políticas de privacidade e proteção de dados da organização.
+      </p>
+
+      <div class="actions">
+
+        <button
+          class="btn-back"
+          onclick="irParaEtapa(3)"
+        >
+          ← Voltar
+        </button>
+
+        <button
+          class="btn-system"
+          id="processButton"
+          onclick="processarDemanda()"
+        >
+          🤖 Processar com IA
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         RESULTADO
+    ==================================================== -->
+
+    <div class="step" id="resultStep">
+
+      <div class="result">
+
+        <div class="result-check">
+          ✓
+        </div>
+
+        <h3>
+          Demanda registrada
+        </h3>
+
+        <p class="result-subtitle">
+          A classificação e o plano de ação foram gerados
+          pelo motor inteligente do sistema.
+        </p>
+
+
+        <div class="protocol">
+
+          <span id="protocolNumber">
+            #AD-000000
+          </span>
+
+          <button
+            onclick="copiarProtocolo()"
+            title="Copiar protocolo"
+            aria-label="Copiar protocolo"
+          >
+            📋
+          </button>
+
+        </div>
+
+
+        <div
+          class="result-box"
+          id="resultContent"
+        >
+        </div>
+
+
+        <div class="result-info">
+
+          📌
+          <strong>Encaminhamento:</strong>
+          a solicitação está preparada para ser encaminhada
+          à equipe responsável.
+
+          <br><br>
+
+          ⏱️
+          <strong>Prazo de referência:</strong>
+          <span id="deadline">
+            24 horas
+          </span>
+
+        </div>
+
+
+        <div class="result-actions">
+
+          <button onclick="baixarProtocolo()">
+            📥 Baixar protocolo
+          </button>
+
+          <button onclick="abrirEmail()">
+            📧 Abrir e-mail
+          </button>
+
+          <button onclick="novaSolicitacao()">
+            🔄 Nova solicitação
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     RECURSOS
+======================================================= -->
+
+<section
+  id="recursos"
+  class="section reveal"
+>
+
+  <div class="section-header">
+
+    <span class="tag">
+      Tecnologia
+    </span>
+
+    <h2>
+      Como a IA otimiza a gestão
+    </h2>
+
+    <p>
+      Uma proposta de solução para organizar demandas,
+      classificar situações e apoiar a tomada de decisão.
+    </p>
+
+  </div>
+
+
+  <div class="cards">
+
+    <article class="card">
+
+      <div class="card-icon">🧠</div>
+
+      <h3>
+        Classificação Inteligente
+      </h3>
+
+      <p>
+        Organiza a demanda de acordo com o tipo de barreira
+        informado pelo usuário.
+      </p>
+
+    </article>
+
+
+    <article class="card">
+
+      <div class="card-icon">⚡</div>
+
+      <h3>
+        Resposta Ágil
+      </h3>
+
+      <p>
+        Estrutura as informações para reduzir tarefas
+        manuais e facilitar o encaminhamento.
+      </p>
+
+    </article>
+
+
+    <article class="card">
+
+      <div class="card-icon">📊</div>
+
+      <h3>
+        Visão Integrada
+      </h3>
+
+      <p>
+        Centraliza informações importantes para apoiar
+        uma gestão mais organizada.
+      </p>
+
+    </article>
+
+
+    <article class="card">
+
+      <div class="card-icon">📋</div>
+
+      <h3>
+        Plano de Ação
+      </h3>
+
+      <p>
+        Gera recomendações relacionadas ao tipo de
+        barreira identificado.
+      </p>
+
+    </article>
+
+
+    <article class="card">
+
+      <div class="card-icon">📈</div>
+
+      <h3>
+        Indicadores
+      </h3>
+
+      <p>
+        A estrutura do projeto permite futuramente
+        trabalhar com indicadores e análises.
+      </p>
+
+    </article>
+
+
+    <article class="card">
+
+      <div class="card-icon">🔒</div>
+
+      <h3>
+        Tratamento Responsável
+      </h3>
+
+      <p>
+        O sistema orienta o tratamento responsável
+        das informações fornecidas pelos usuários.
+      </p>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     SOBRE
+======================================================= -->
+
+<section
+  id="sobre"
+  class="section reveal"
+>
+
+  <div class="section-header">
+
+    <span class="tag">
+      Sobre o Projeto
+    </span>
+
+    <h2>
+      Acessibilidade Digital
+    </h2>
+
+    <p>
+      Otimização da Gestão de Acessibilidade e Inclusão
+      Organizacional via Inteligência Artificial.
+    </p>
+
+  </div>
+
+
+  <div class="about-box">
+
+    <p>
+      O projeto propõe uma solução digital para apoiar a
+      identificação, organização e encaminhamento de demandas
+      relacionadas à acessibilidade e inclusão organizacional.
+    </p>
+
+    <div class="about-highlight">
+
+      <div class="about-item">
+
+        <strong>Empresa parceira</strong>
+
+        <span>
+          Petrobras
+        </span>
+
+      </div>
+
+
+      <div class="about-item">
+
+        <strong>Instituição</strong>
+
+        <span>
+          Instituto SENAI de Tecnologia de Mato Grosso
+        </span>
+
+      </div>
+
+
+      <div class="about-item">
+
+        <strong>Área</strong>
+
+        <span>
+          Tecnologia da Informação
+        </span>
+
+      </div>
+
+
+      <div class="about-item">
+
+        <strong>Evento</strong>
+
+        <span>
+          Feira de Tecnologia e Inovação
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<!-- =======================================================
+     CHAT
+======================================================= -->
+
+<button
+  id="chatButton"
+  onclick="alternarChat()"
+  aria-label="Abrir assistente de acessibilidade"
+>
+  💬
+</button>
+
+
+<div id="chatWindow">
+
+  <div class="chat-header">
+
+    <div class="chat-avatar">
+      🤖
+    </div>
+
+    <div class="chat-title">
+
+      <strong>
+        Assistente IA Digital
+      </strong>
+
+      <small>
+        Atendimento informativo
+      </small>
+
+    </div>
+
+    <button
+      class="chat-close"
+      onclick="alternarChat()"
+      aria-label="Fechar assistente"
+    >
+      ×
+    </button>
+
+  </div>
+
+
+  <div
+    class="chat-body"
+    id="chatBody"
+  ></div>
+
+
+  <div class="quick-replies">
+
+    <button onclick="perguntaRapida('O que é acessibilidade?')">
+      Acessibilidade
+    </button>
+
+    <button onclick="perguntaRapida('Quais leis existem?')">
+      Leis
+    </button>
+
+    <button onclick="perguntaRapida('Como a IA ajuda?')">
+      IA
+    </button>
+
+    <button onclick="perguntaRapida('O que é capacitismo?')">
+      Capacitismo
+    </button>
+
+    <button onclick="perguntaRapida('Como usar o sistema?')">
+      Como usar
+    </button>
+
+  </div>
+
+
+  <div class="chat-input">
+
+    <input
+      id="chatInput"
+      type="text"
+      placeholder="Digite sua dúvida..."
+      onkeydown="if(event.key==='Enter') enviarMensagem()"
+    >
+
+    <button
+      class="chat-send"
+      onclick="enviarMensagem()"
+      aria-label="Enviar mensagem"
+    >
+      ➤
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =======================================================
+     TOAST
+======================================================= -->
+
+<div id="toast"></div>
+
+
+<!-- =======================================================
+     FOOTER
+======================================================= -->
+
+<footer>
+
+  <strong>
+    Otimização da Gestão de Acessibilidade e Inclusão Organizacional via IA
+  </strong>
+
+  <p>
+    Petrobras • Instituto SENAI de Tecnologia de Mato Grosso
+  </p>
+
+  <p>
+    Feira de Tecnologia e Inovação
+  </p>
+
+  <p>
+    Contato:
+    <a href="mailto:felipecosta02838@gmail.com">
+      felipecosta02838@gmail.com
+    </a>
+  </p>
+
+  <div class="footer-bottom">
+    © 2025 Acessibilidade Digital — Projeto SENAI MT
+  </div>
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   CONFIGURAÇÕES
+========================================================= */
+
+const dados = {
+  tipo:"",
+  local:"",
+  urgencia:""
+};
+
+let protocoloAtual = "";
+let dadosSolicitacao = {};
+
+const nomesEtapas = {
+  1:"Tipo de Barreira",
+  2:"Local da Ocorrência",
+  3:"Nível de Urgência",
+  4:"Detalhes da Demanda"
+};
+
+
+/* =========================================================
+   PLANOS DE AÇÃO
+========================================================= */
+
+const planos = {
+
+  arquitetonica:[
+    "Realizar vistoria técnica no local.",
+    "Avaliar as condições de acessibilidade do espaço.",
+    "Verificar necessidade de adequações físicas.",
+    "Avaliar recursos de acessibilidade e tecnologia assistiva.",
+    "Registrar e acompanhar as ações necessárias."
+  ],
+
+  comunicacional:[
+    "Identificar a necessidade de comunicação acessível.",
+    "Avaliar recursos como Libras, Braille e audiodescrição.",
+    "Adequar materiais e canais de comunicação.",
+    "Orientar a equipe sobre comunicação acessível.",
+    "Acompanhar a implementação das medidas."
+  ],
+
+  tecnologica:[
+    "Avaliar a acessibilidade do sistema ou ambiente digital.",
+    "Verificar navegação por teclado e tecnologias assistivas.",
+    "Avaliar contraste, estrutura e elementos da interface.",
+    "Realizar testes de acessibilidade.",
+    "Registrar as correções necessárias para acompanhamento."
+  ],
+
+  transporte:[
+    "Mapear a situação de transporte identificada.",
+    "Avaliar rotas e condições de acessibilidade.",
+    "Verificar necessidade de adaptação de veículos.",
+    "Avaliar alternativas de deslocamento acessível.",
+    "Acompanhar as medidas implementadas."
+  ],
+
+  institucional:[
+    "Analisar o processo ou procedimento relacionado.",
+    "Verificar políticas e normas internas aplicáveis.",
+    "Identificar pontos que possam gerar barreiras.",
+    "Propor melhorias no processo.",
+    "Definir acompanhamento das ações."
+  ],
+
+  atitudinal:[
+    "Registrar a situação relatada.",
+    "Avaliar a necessidade de orientação ou capacitação.",
+    "Promover conscientização sobre acessibilidade e inclusão.",
+    "Identificar medidas para evitar recorrência.",
+    "Acompanhar o encaminhamento da situação."
+  ]
+
+};
+
+
+/* =========================================================
+   NOMES
+========================================================= */
+
+const categorias = {
+
+  arquitetonica:"Arquitetônica",
+
+  comunicacional:"Comunicacional",
+
+  tecnologica:"Tecnológica",
+
+  transporte:"Transporte",
+
+  institucional:"Institucional",
+
+  atitudinal:"Atitudinal"
+
+};
+
+
+const locais = {
+
+  refinaria:"Refinaria / Planta Industrial",
+
+  offshore:"Plataforma Offshore",
+
+  escritorio:"Escritório Administrativo",
+
+  digital:"Sistema / Ambiente Digital",
+
+  rh:"RH / Gestão de Pessoas"
+
+};
+
+
+const urgencias = {
+
+  critica:"Crítica",
+
+  alta:"Alta",
+
+  media:"Média",
+
+  baixa:"Baixa"
+
+};
+
+
+const prazos = {
+
+  critica:"4 horas",
+
+  alta:"24 horas",
+
+  media:"72 horas",
+
+  baixa:"7 dias"
+
+};
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+function alternarMenu(){
+
+  document
+    .getElementById("mainNav")
+    .classList.toggle("open");
+
+}
+
+function fecharMenu(){
+
+  document
+    .getElementById("mainNav")
+    .classList.remove("open");
+
+}
+
+
+/* =========================================================
+   TEMA
+========================================================= */
+
+function alternarTema(){
+
+  document.body.classList.toggle("dark");
+
+  const escuro =
+    document.body.classList.contains("dark");
+
+  document.getElementById("themeBtn").textContent =
+    escuro ? "☀️" : "🌙";
+
+  localStorage.setItem(
+    "tema",
+    escuro ? "dark" : "light"
+  );
+
+}
+
+
+/* Recupera tema */
+
+if(localStorage.getItem("tema")==="dark"){
+
+  document.body.classList.add("dark");
+
+  document.getElementById("themeBtn").textContent="☀️";
+
+}
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+const observer =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(entry => {
+
+        if(entry.isIntersecting){
+
+          entry.target.classList.add("visible");
+
+          observer.unobserve(entry.target);
+
+        }
+
+      });
+
+    },
+    {
+      threshold:.12
+    }
+  );
+
+
+document
+  .querySelectorAll(".reveal")
+  .forEach(el => observer.observe(el));
+
+
+/* =========================================================
+   SELEÇÃO DAS OPÇÕES
+========================================================= */
+
+function selecionarOpcao(botao, campo){
+
+  const etapa =
+    botao.closest(".step");
+
+  etapa
+    .querySelectorAll(".option")
+    .forEach(item =>
+      item.classList.remove("selected")
+    );
+
+  botao.classList.add("selected");
+
+  dados[campo] =
+    botao.dataset.value;
+
+
+  if(campo==="tipo"){
+
+    ativarBotao("next1");
+
+  }
+
+  if(campo==="local"){
+
+    ativarBotao("next2");
+
+  }
+
+  if(campo==="urgencia"){
+
+    ativarBotao("next3");
+
+  }
+
+}
+
+
+function ativarBotao(id){
+
+  const botao =
+    document.getElementById(id);
+
+  botao.disabled=false;
+
+  botao.classList.add("ready");
+
+}
+
+
+/* =========================================================
+   NAVEGAÇÃO DAS ETAPAS
+========================================================= */
+
+function irParaEtapa(numero){
+
+  if(numero===2 && !dados.tipo){
+
+    mostrarToast("Selecione o tipo de barreira.");
+
+    return;
+
+  }
+
+  if(numero===3 && !dados.local){
+
+    mostrarToast("Selecione o local da ocorrência.");
+
+    return;
+
+  }
+
+  if(numero===4 && !dados.urgencia){
+
+    mostrarToast("Selecione o nível de urgência.");
+
+    return;
+
+  }
+
+
+  document
+    .querySelectorAll(".step")
+    .forEach(step =>
+      step.classList.remove("active")
+    );
+
+
+  const destino =
+    numero <= 4
+      ? document.getElementById("step"+numero)
+      : document.getElementById("resultStep");
+
+
+  if(destino){
+
+    destino.classList.add("active");
+
+  }
+
+
+  atualizarProgresso(numero);
+
+  document
+    .getElementById("sistema")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+}
+
+
+function atualizarProgresso(numero){
+
+  const etapa =
+    Math.min(numero,4);
+
+  for(let i=1;i<=4;i++){
+
+    const barra =
+      document.getElementById("progress"+i);
+
+    barra.classList.toggle(
+      "active",
+      i<=etapa
+    );
+
+  }
+
+
+  document.getElementById(
+    "stepNumber"
+  ).textContent=etapa;
+
+
+  document.getElementById(
+    "stepName"
+  ).textContent=
+    nomesEtapas[etapa] ||
+    "Resultado";
+
+}
+
+
+/* =========================================================
+   PROCESSAR DEMANDA
+========================================================= */
+
+function processarDemanda(){
+
+  const nome =
+    document.getElementById("nome")
+      .value.trim();
+
+  const email =
+    document.getElementById("email")
+      .value.trim();
+
+  const setor =
+    document.getElementById("setor")
+      .value.trim();
+
+  const descricao =
+    document.getElementById("descricao")
+      .value.trim();
+
+
+  if(!nome){
+
+    mostrarToast(
+      "Informe seu nome completo."
+    );
+
+    destacarCampo("nome");
+
+    return;
+
+  }
+
+
+  if(!email || !validarEmail(email)){
+
+    mostrarToast(
+      "Informe um e-mail válido."
+    );
+
+    destacarCampo("email");
+
+    return;
+
+  }
+
+
+  if(!descricao){
+
+    mostrarToast(
+      "Descreva a barreira identificada."
+    );
+
+    destacarCampo("descricao");
+
+    return;
+
+  }
+
+
+  if(
+    !dados.tipo ||
+    !dados.local ||
+    !dados.urgencia
+  ){
+
+    mostrarToast(
+      "Complete todas as etapas anteriores."
+    );
+
+    return;
+
+  }
+
+
+  const botao =
+    document.getElementById(
+      "processButton"
+    );
+
+
+  botao.disabled=true;
+
+  botao.innerHTML =
+    '<span style="display:inline-flex;align-items:center;gap:8px">' +
+    '<span class="spinner"></span>' +
+    'Processando...' +
+    '</span>';
+
+
+  setTimeout(() => {
+
+    gerarResultado({
+      nome,
+      email,
+      setor,
+      descricao
+    });
+
+    botao.disabled=false;
+
+    botao.innerHTML =
+      "🤖 Processar com IA";
+
+  },1200);
+
+}
+
+
+function validarEmail(email){
+
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    .test(email);
+
+}
+
+
+function destacarCampo(id){
+
+  const campo =
+    document.getElementById(id);
+
+  campo.classList.remove("shake");
+
+  void campo.offsetWidth;
+
+  campo.classList.add("shake");
+
+  campo.focus();
+
+}
+
+
+/* =========================================================
+   GERAR RESULTADO
+========================================================= */
+
+function gerarResultado(formulario){
+
+  const agora =
+    Date.now()
+      .toString()
+      .slice(-6);
+
+  protocoloAtual =
+    "#AD-"+agora;
+
+
+  dadosSolicitacao = {
+
+    protocolo:protocoloAtual,
+
+    nome:formulario.nome,
+
+    email:formulario.email,
+
+    setor:formulario.setor,
+
+    descricao:formulario.descricao,
+
+    tipo:dados.tipo,
+
+    local:dados.local,
+
+    urgencia:dados.urgencia,
+
+    prazo:
+      prazos[dados.urgencia]
+
+  };
+
+
+  const plano =
+    planos[dados.tipo] ||
+    planos.atitudinal;
+
+
+  document.getElementById(
+    "protocolNumber"
+  ).textContent =
+    protocoloAtual;
+
+
+  document.getElementById(
+    "deadline"
+  ).textContent =
+    prazos[dados.urgencia];
+
+
+  document.getElementById(
+    "resultContent"
+  ).innerHTML = `
+
+    <h4>
+      🤖 Plano de Ação gerado
+    </h4>
+
+    <ul>
+
+      ${plano.map(item => `
+        <li>${item}</li>
+      `).join("")}
+
+    </ul>
+
+    <div class="result-tags">
+
+      <span class="result-tag">
+        📌 ${categorias[dados.tipo]}
+      </span>
+
+      <span class="result-tag">
+        📍 ${locais[dados.local]}
+      </span>
+
+      <span class="result-tag">
+        ⚡ ${urgencias[dados.urgencia]}
+      </span>
+
+    </div>
+
+  `;
+
+
+  localStorage.setItem(
+    "ultimaDemanda",
+    JSON.stringify(dadosSolicitacao)
+  );
+
+
+  document
+    .querySelectorAll(".step")
+    .forEach(step =>
+      step.classList.remove("active")
+    );
+
+
+  document
+    .getElementById("resultStep")
+    .classList.add("active");
+
+
+  atualizarProgresso(4);
+
+
+  document
+    .getElementById("sistema")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+
+  mostrarToast(
+    "Demanda processada com sucesso."
+  );
+
+}
+
+
+/* =========================================================
+   COPIAR PROTOCOLO
+========================================================= */
+
+function copiarProtocolo(){
+
+  if(!protocoloAtual){
+
+    return;
+
+  }
+
+
+  navigator.clipboard
+    .writeText(protocoloAtual)
+    .then(() => {
+
+      mostrarToast(
+        "Protocolo copiado."
+      );
+
+    })
+    .catch(() => {
+
+      mostrarToast(
+        "Não foi possível copiar automaticamente."
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   BAIXAR PROTOCOLO
+========================================================= */
+
+function baixarProtocolo(){
+
+  if(!dadosSolicitacao.protocolo){
+
+    mostrarToast(
+      "Nenhum protocolo disponível."
+    );
+
+    return;
+
+  }
+
+
+  const plano =
+    planos[dadosSolicitacao.tipo] ||
+    [];
+
+
+  const texto = `
+
+ACESSIBILIDADE DIGITAL
+GESTÃO INTELIGENTE COM IA
+
+========================================
+
+PROTOCOLO: ${dadosSolicitacao.protocolo}
+
+DADOS DO SOLICITANTE
+----------------------------------------
+Nome: ${dadosSolicitacao.nome}
+E-mail: ${dadosSolicitacao.email}
+Setor/Matrícula: ${dadosSolicitacao.setor || "Não informado"}
+
+CLASSIFICAÇÃO
+----------------------------------------
+Tipo: ${categorias[dadosSolicitacao.tipo]}
+Local: ${locais[dadosSolicitacao.local]}
+Urgência: ${urgencias[dadosSolicitacao.urgencia]}
+Prazo de referência: ${dadosSolicitacao.prazo}
+
+DESCRIÇÃO DA DEMANDA
+----------------------------------------
+${dadosSolicitacao.descricao}
+
+PLANO DE AÇÃO
+----------------------------------------
+${plano.map(
+  (item,index) =>
+    `${index+1}. ${item}`
+).join("\n")}
+
+========================================
+
+Projeto Acessibilidade Digital
+SENAI MT + Petrobras
+
+`;
+
+
+  const blob =
+    new Blob(
+      [texto],
+      {
+        type:"text/plain;charset=utf-8"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(blob);
+
+
+  const link =
+    document.createElement("a");
+
+
+  link.href=url;
+
+  link.download =
+    `${dadosSolicitacao.protocolo.replace("#","")}.txt`;
+
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+
+  URL.revokeObjectURL(url);
+
+
+  mostrarToast(
+    "Protocolo baixado."
+  );
+
+}
+
+
+/* =========================================================
+   ABRIR E-MAIL
+========================================================= */
+
+function abrirEmail(){
+
+  if(!dadosSolicitacao.protocolo){
+
+    mostrarToast(
+      "Nenhuma solicitação disponível."
+    );
+
+    return;
+
+  }
+
+
+  const plano =
+    planos[dadosSolicitacao.tipo] ||
+    [];
+
+
+  const assunto =
+    `[Acessibilidade Digital] ${dadosSolicitacao.protocolo} - ${categorias[dadosSolicitacao.tipo]}`;
+
+
+  const corpo = `
+
+PROTOCOLO: ${dadosSolicitacao.protocolo}
+
+DADOS DO SOLICITANTE
+Nome: ${dadosSolicitacao.nome}
+E-mail: ${dadosSolicitacao.email}
+Setor/Matrícula: ${dadosSolicitacao.setor || "Não informado"}
+
+CLASSIFICAÇÃO
+Tipo de barreira: ${categorias[dadosSolicitacao.tipo]}
+Local: ${locais[dadosSolicitacao.local]}
+Urgência: ${urgencias[dadosSolicitacao.urgencia]}
+Prazo de referência: ${dadosSolicitacao.prazo}
+
+DESCRIÇÃO
+${dadosSolicitacao.descricao}
+
+PLANO DE AÇÃO
+${plano.map(
+  (item,index) =>
+    `${index+1}. ${item}`
+).join("\n")}
+
+---
+
+Projeto Acessibilidade Digital
+SENAI MT + Petrobras
+
+`;
+
+
+  const destino =
+    "felipecosta02838@gmail.com";
+
+
+  window.location.href =
+    `mailto:${destino}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
+
+
+  setTimeout(() => {
+
+    mostrarToast(
+      "O aplicativo de e-mail será aberto para envio."
+    );
+
+  },300);
+
+}
+
+
+/* =========================================================
+   NOVA SOLICITAÇÃO
+========================================================= */
+
+function novaSolicitacao(){
+
+  dados.tipo="";
+  dados.local="";
+  dados.urgencia="";
+
+  dadosSolicitacao={};
+
+  protocoloAtual="";
+
+
+  document
+    .querySelectorAll(".option")
+    .forEach(option =>
+      option.classList.remove("selected")
+    );
+
+
+  document
+    .querySelectorAll("input, textarea")
+    .forEach(campo =>
+      campo.value=""
+    );
+
+
+  document
+    .querySelectorAll(".btn-system")
+    .forEach(botao => {
+
+      if(
+        botao.id==="next1" ||
+        botao.id==="next2" ||
+        botao.id==="next3"
+      ){
+
+        botao.disabled=true;
+
+        botao.classList.remove("ready");
+
+      }
+
+    });
+
+
+  irParaEtapa(1);
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+function mostrarToast(mensagem){
+
+  const toast =
+    document.getElementById("toast");
+
+
+  toast.textContent=mensagem;
+
+  toast.classList.add("show");
+
+
+  clearTimeout(toastTimer);
+
+
+  toastTimer =
+    setTimeout(() => {
+
+      toast.classList.remove("show");
+
+    },3000);
+
+}
+
+
+/* =========================================================
+   CHAT
+========================================================= */
+
+let chatInicializado=false;
+
+
+function alternarChat(){
+
+  const janela =
+    document.getElementById(
+      "chatWindow"
+    );
+
+
+  janela.classList.toggle("open");
+
+
+  if(
+    janela.classList.contains("open") &&
+    !chatInicializado
+  ){
+
+    chatInicializado=true;
+
+    responderBot(
+      "Olá! 👋 Sou o Assistente IA do projeto <b>Acessibilidade Digital</b>.<br><br>" +
+      "Posso explicar acessibilidade, legislação, capacitismo, " +
+      "o funcionamento do sistema ou ajudar você a registrar uma demanda."
+    );
+
+  }
+
+}
+
+
+function adicionarMensagem(
+  texto,
+  tipo
+){
+
+  const corpo =
+    document.getElementById(
+      "chatBody"
+    );
+
+
+  const mensagem =
+    document.createElement("div");
+
+
+  mensagem.className =
+    "message "+tipo;
+
+
+  mensagem.innerHTML =
+    texto;
+
+
+  corpo.appendChild(mensagem);
+
+
+  corpo.scrollTop =
+    corpo.scrollHeight;
+
+}
+
+
+function responderBot(texto){
+
+  const corpo =
+    document.getElementById(
+      "chatBody"
+    );
+
+
+  const digitando =
+    document.createElement("div");
+
+
+  digitando.className =
+    "message bot typing";
+
+
+  digitando.innerHTML =
+    "<span></span><span></span><span></span>";
+
+
+  corpo.appendChild(digitando);
+
+
+  corpo.scrollTop =
+    corpo.scrollHeight;
+
+
+  setTimeout(() => {
+
+    digitando.remove();
+
+    adicionarMensagem(
+      texto,
+      "bot"
+    );
+
+  },600);
+
+}
+
+
+function enviarMensagem(){
+
+  const input =
+    document.getElementById(
+      "chatInput"
+    );
+
+
+  const texto =
+    input.value.trim();
+
+
+  if(!texto){
+
+    return;
+
+  }
+
+
+  adicionarMensagem(
+    escaparHTML(texto),
+    "user"
+  );
+
+
+  input.value="";
+
+
+  responderBot(
+    gerarResposta(texto)
+  );
+
+}
+
+
+function perguntaRapida(texto){
+
+  adicionarMensagem(
+    escaparHTML(texto),
+    "user"
+  );
+
+
+  responderBot(
+    gerarResposta(texto)
+  );
+
+}
+
+
+/* =========================================================
+   RESPOSTAS DO ASSISTENTE
+========================================================= */
+
+function gerarResposta(mensagem){
+
+  const texto =
+    mensagem
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g,"");
+
+
+  if(
+    texto.includes("o que e acessibilidade") ||
+    texto.includes("que e acessibilidade")
+  ){
+
+    return `
+      📖 <b>Acessibilidade</b> significa criar condições
+      para que pessoas com diferentes necessidades possam
+      utilizar espaços, serviços, informações e tecnologias
+      com autonomia e segurança.
+      <br><br>
+      O projeto trabalha diferentes tipos de barreiras
+      para apoiar a inclusão organizacional.
+    `;
+
+  }
+
+
+  if(
+    texto.includes("lei") ||
+    texto.includes("lbi") ||
+    texto.includes("legislacao") ||
+    texto.includes("direito")
+  ){
+
+    return `
+      ⚖️ Algumas referências relacionadas à acessibilidade
+      no Brasil incluem a <b>Lei Brasileira de Inclusão —
+      Lei nº 13.146/2015</b>, além de outras normas e
+      regulamentações aplicáveis.
+      <br><br>
+      Para decisões jurídicas ou aplicação de normas,
+      consulte a legislação e os responsáveis competentes
+      da organização.
+    `;
+
+  }
+
+
+  if(
+    texto.includes("ia") ||
+    texto.includes("inteligencia artificial")
+  ){
+
+    return `
+      🤖 Neste projeto, a IA é utilizada como conceito
+      de apoio à gestão.
+      <br><br>
+      O sistema organiza as informações fornecidas,
+      classifica a demanda, identifica a prioridade
+      informada e apresenta um plano de ação relacionado
+      ao tipo de barreira.
+    `;
+
+  }
+
+
+  if(
+    texto.includes("capacitismo")
+  ){
+
+    return `
+      🧠 <b>Capacitismo</b> é a discriminação ou preconceito
+      relacionado à deficiência.
+      <br><br>
+      Ele pode aparecer em atitudes, comportamentos,
+      comunicação, processos ou estruturas que criem
+      desvantagens para pessoas com deficiência.
+    `;
+
+  }
+
+
+  if(
+    texto.includes("pcd") ||
+    texto.includes("pessoa com deficiencia")
+  ){
+
+    return `
+      ♿ O projeto busca apoiar demandas relacionadas
+      à acessibilidade de pessoas com deficiência,
+      considerando barreiras físicas, comunicacionais,
+      tecnológicas, institucionais e atitudinais.
+    `;
+
+  }
+
+
+  if(
+    texto.includes("como usar") ||
+    texto.includes("como funciona") ||
+    texto.includes("etapa")
+  ){
+
+    return `
+      📋 <b>Como usar o sistema:</b>
+      <br><br>
+      1️⃣ Escolha o tipo de barreira.
+      <br>
+      2️⃣ Informe onde acontece.
+      <br>
+      3️⃣ Selecione a urgência.
+      <br>
+      4️⃣ Informe seus dados e descreva a situação.
+      <br>
+      5️⃣ Clique em <b>Processar com IA</b>.
+      <br><br>
+      Depois disso, o sistema apresenta um protocolo
+      e um plano de ação.
+    `;
+
+  }
+
+
+  if(
+    texto.includes("registrar") ||
+    texto.includes("solicitacao") ||
+    texto.includes("pedir") ||
+    texto.includes("demanda")
+  ){
+
+    return `
+      📝 Para registrar uma demanda, utilize o formulário
+      de <b>Atendimento Inteligente</b> nesta página.
+      <br><br>
+      Você deverá informar o tipo de barreira,
+      local, urgência e detalhes da situação.
+    `;
+
+  }
+
+
+  if(
+    texto.includes("senai") ||
+    texto.includes("projeto")
+  ){
+
+    return `
+      🎓 Este projeto foi desenvolvido com foco em
+      <b>gestão de acessibilidade e inclusão organizacional
+      por meio de tecnologia e inteligência artificial</b>,
+      dentro da proposta do projeto SENAI MT + Petrobras.
+    `;
+
+  }
+
+
+  if(
+    texto.includes("contato") ||
+    texto.includes("email") ||
+    texto.includes("falar")
+  ){
+
+    return `
+      📧 O contato informado no projeto é:
+      <br><br>
+      <b>felipecosta02838@gmail.com</b>
+    `;
+
+  }
+
+
+  if(
+    texto.includes("obrigado") ||
+    texto.includes("obrigada") ||
+    texto.includes("valeu") ||
+    texto.includes("tchau")
+  ){
+
+    return `
+      💚 Por nada!
+      <br><br>
+      Estou aqui para ajudar com informações sobre
+      acessibilidade e o funcionamento do sistema.
+    `;
+
+  }
+
+
+  if(
+    texto.includes("oi") ||
+    texto.includes("ola") ||
+    texto.includes("bom dia") ||
+    texto.includes("boa tarde") ||
+    texto.includes("boa noite")
+  ){
+
+    return `
+      Olá! 👋
+      <br><br>
+      Bem-vindo ao <b>Acessibilidade Digital</b>.
+      <br><br>
+      Posso explicar acessibilidade, leis, capacitismo,
+      inteligência artificial ou como registrar uma demanda.
+    `;
+
+  }
+
+
+  return `
+    🤔 Posso ajudar com:
+    <br><br>
+    • Acessibilidade
+    <br>
+    • Legislação
+    <br>
+    • Capacitismo
+    <br>
+    • Inteligência artificial
+    <br>
+    • Como usar o sistema
+    <br>
+    • Como registrar uma demanda
+  `;
+
+}
+
+
+/* =========================================================
+   ESCAPAR HTML
+========================================================= */
+
+function escaparHTML(texto){
+
+  const div =
+    document.createElement("div");
+
+  div.textContent=texto;
+
+  return div.innerHTML;
+
+}
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
+
+atualizarProgresso(1);
+
+</script>
+
+</body>
+</html>
